@@ -52,7 +52,7 @@ $(document).ready(() => {
     }
   });
 
-  let amenities = {};
+  const amenities = {};
   $('input[type="checkbox"]').change(function () {
     if ($(this).is(':checked')) {
       amenities[$(this).data('id')] = $(this).data('name');

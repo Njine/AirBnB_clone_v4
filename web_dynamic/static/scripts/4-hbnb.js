@@ -20,7 +20,7 @@ $(document).ready(function () {
 });
 
 // Function to update locations based on checkbox changes
-function updateLocations() {
+function updateLocations () {
   const states = $('.locations > UL > H2 > INPUT[type="checkbox"]:checked').map(function () {
     return { [$(this).attr('data-id')]: $(this).attr('data-name') };
   }).get();
@@ -34,7 +34,7 @@ function updateLocations() {
 }
 
 // Function to update amenities based on checkbox changes
-function updateAmenities() {
+function updateAmenities () {
   const amenities = $('.amenities INPUT[type="checkbox"]:checked').map(function () {
     return { [$(this).attr('data-id')]: $(this).attr('data-name') };
   }).get();
@@ -43,13 +43,13 @@ function updateAmenities() {
 }
 
 // Function to update location header text
-function updateLocationHeader(locations, headerSelector) {
+function updateLocationHeader (locations, headerSelector) {
   const headerText = Object.values(locations).join(', ') || '&nbsp;';
   $(headerSelector + ' H4').html(headerText);
 }
 
 // Function to fetch places data
-function fetchPlacesData() {
+function fetchPlacesData () {
   $.ajax({
     url: api + ':5001/api/v1/places_search/',
     type: 'POST',
@@ -61,7 +61,7 @@ function fetchPlacesData() {
 }
 
 // Function to search places based on selected filters
-function searchPlaces() {
+function searchPlaces () {
   const states = getSelectedValues('.locations > UL > H2 > INPUT[type="checkbox"]');
   const cities = getSelectedValues('.locations > UL > UL > LI INPUT[type="checkbox"]');
   const amenities = getSelectedValues('.amenities INPUT[type="checkbox"]');
@@ -69,7 +69,7 @@ function searchPlaces() {
   $.ajax({
     url: api + ':5001/api/v1/places_search/',
     type: 'POST',
-    data: JSON.stringify({ 'states': states, 'cities': cities, 'amenities': amenities }),
+    data: JSON.stringify({ states, cities, amenities }),
     contentType: 'application/json',
     dataType: 'json',
     success: appendPlaces
@@ -77,14 +77,14 @@ function searchPlaces() {
 }
 
 // Function to get selected values from checkboxes
-function getSelectedValues(selector) {
+function getSelectedValues (selector) {
   return $(selector + ':checked').map(function () {
     return $(this).attr('data-id');
   }).get();
 }
 
 // Function to append places data to the DOM
-function appendPlaces(data) {
+function appendPlaces (data) {
   const placesSection = $('SECTION.places');
   placesSection.empty();
   placesSection.append(data.map(function (place) {
